@@ -1,15 +1,34 @@
 import { FaSearch } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import Login from "../pages/Login";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import ProductContext from "../context/ProductContexts";
 
 const Navbar = () => {
   const [loginPopUp, setLoginPopUP] = useState(false);
+  const [search, setSearch] = useState("");
+  const { products, setProducts } = useContext(ProductContext);
+
+  const searchProducts = (str: string) => {
+    if (str !== "") {
+      const filtered = products.filter((item) => item.title.includes(str));
+      setProducts(filtered);
+    }
+  };
+
+  useEffect(() => {
+    searchProducts(search);
+  }, [search]);
+
   return (
     <>
       <div className="flex p-4 bg-slate-100 shadow-sm">
-        <Link to="/"><h1 className="w-11 h-9 text-2xl font-extrabold cursor-pointer">Olx</h1></Link>
+        <Link to="/">
+          <h1 className="w-11 h-9 text-2xl font-extrabold cursor-pointer">
+            Olx
+          </h1>
+        </Link>
         <div className="flex border w-64 border-spacing-1 p-2 border-black bg-white ml-5">
           <FaSearch className="w-6 h-5 my-auto mr-1" />
           <input className="outline-none" type="text" placeholder="Location" />
@@ -20,6 +39,7 @@ const Navbar = () => {
             type="text"
             placeholder="Find Cars, Moblie phones and more"
             className="ml-3 w-96 outline-none"
+            onChange={(e) => setSearch(e.target.value)}
           />
           <div className="bg-black h-full text-white px-5">
             <FaSearch className="mt-2 text-3xl" />

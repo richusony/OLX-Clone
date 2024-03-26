@@ -1,14 +1,22 @@
 import { initializeApp } from "firebase/app";
-import { getAuth , GoogleAuthProvider} from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
+const {
+  VITE_FIREBASE_API_DOMAIN,
+  VITE_FIREBASE_AUTH_DOMAIN,
+  VITE_FIREBASE_PROJECT_ID,
+  VITE_FIREBASE_STORAGE_BUCKET,
+  VITE_FIREBASE_MESSAGING_SENDER_ID,
+  VITE_FIREBASE_APP_ID,
+} = import.meta.env;
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCgGXAPahb7S3t_5YjYOoy-HD9-YvI3X1Q",
-  authDomain: "hft-next-chat-admin-user.firebaseapp.com",
-  projectId: "hft-next-chat-admin-user",
-  storageBucket: "hft-next-chat-admin-user.appspot.com",
-  messagingSenderId: "912218860080",
-  appId: "1:912218860080:web:8412e86cc8d462e8661bf5"
+  apiKey: VITE_FIREBASE_API_DOMAIN,
+  authDomain: VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: VITE_FIREBASE_PROJECT_ID,
+  storageBucket: VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: VITE_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase

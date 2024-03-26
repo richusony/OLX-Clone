@@ -2,13 +2,14 @@ import { FaSearch } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import Login from "../pages/Login";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [loginPopUp, setLoginPopUP] = useState(false);
   return (
     <>
       <div className="flex p-4 bg-slate-100 shadow-sm">
-        <h1 className="w-11 h-9 text-2xl font-extrabold cursor-pointer">Olx</h1>
+        <Link to="/"><h1 className="w-11 h-9 text-2xl font-extrabold cursor-pointer">Olx</h1></Link>
         <div className="flex border w-64 border-spacing-1 p-2 border-black bg-white ml-5">
           <FaSearch className="w-6 h-5 my-auto mr-1" />
           <input className="outline-none" type="text" placeholder="Location" />

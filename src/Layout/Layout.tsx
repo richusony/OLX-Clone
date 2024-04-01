@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
 import Menubar from "../components/Menubar";
 import ProductContext from "../context/ProductContexts.ts";
+import UserContext, { UserType } from "../context/UserContexts.ts";
 import { productUrl } from "../constanst.ts";
 
 interface ProductType {
@@ -18,6 +19,11 @@ interface ProductType {
 
 const Layout = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [user, setUser] = useState<UserType>({
+  name:"",
+  email:"",
+  profileUrl:""
+})
 
   const getProducts = () => {
     fetch(productUrl)
@@ -32,10 +38,14 @@ const Layout = () => {
 
   return (
     <ProductContext.Provider value={{ products, setProducts }}>
-      <Navbar />
-      <Menubar />
-      <Outlet />
-      <Footer />
+      <UserContext.Provider
+        value={{ user, setUser}}
+      >
+        <Navbar />
+        <Menubar />
+        <Outlet />
+        <Footer />
+      </UserContext.Provider>
     </ProductContext.Provider>
   );
 };

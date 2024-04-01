@@ -1,4 +1,3 @@
-// ProductContext.ts
 import { createContext, Dispatch, SetStateAction } from 'react';
 interface ProductType {
   category: string;
@@ -16,7 +15,6 @@ interface ProductContextType {
 }
 
 
-// Initialize the context with a default value that matches the interface
 const ProductContext = createContext<ProductContextType>({
   products: [],
   setProducts: () => {},

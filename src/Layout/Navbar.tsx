@@ -4,11 +4,13 @@ import Login from "../pages/Login";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProductContext from "../context/ProductContexts";
+import userContext from "../context/UserContexts";
 
 const Navbar = () => {
   const [loginPopUp, setLoginPopUP] = useState(false);
   const [search, setSearch] = useState("");
   const { products, setProducts } = useContext(ProductContext);
+  const { user } = useContext(userContext);
 
   const searchProducts = (str: string) => {
     if (str !== "") {
@@ -18,6 +20,7 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    console.log(user.name);
     searchProducts(search);
   }, [search]);
 
@@ -54,7 +57,7 @@ const Navbar = () => {
           onClick={() => setLoginPopUP(!loginPopUp)}
           className="flex h-12 p-3 ml-10 cursor-pointer underline hover:no-underline"
         >
-          <h1 className="font-semibold text-xl">Login</h1>
+          <h1 className="font-semibold text-xl flex justify-center items-center">{user.name?<>{user.profileUrl?<div className="mx-2 w-10"><img className="w-full object-cover rounded-full" src={user.profileUrl} alt="" /></div>:""} {user.name}  </>: "Login"}</h1>
         </div>
         <div className="w-28 flex h-12 p-2 ml-10 cursor-pointer rounded-full border border-yellow-500">
           <h1 className="font-semibold text-xl ml-3">+ Sell</h1>

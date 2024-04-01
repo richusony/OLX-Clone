@@ -3,18 +3,31 @@ import { IoIosPhonePortrait } from "react-icons/io";
 import { FcGoogle } from "react-icons/fc";
 import { signInWithPopup } from "@firebase/auth";
 import { auth, googleProvider } from "../firebase/setup";
+import { useContext } from "react";
+import userContext from "../context/UserContexts";
 
-const Login = (props:any) => {
-
-const googleLogin = async () =>{
+const Login = (props: any) => {
+  const { setUser } = useContext(userContext);
+  const googleLogin = async () => {
     try {
-    signInWithPopup(auth,googleProvider)
-        
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+
+      // Now you can access user details such as email, name, and profile picture
+      setUser({
+        email: user.email,
+        name: user.displayName,
+        profileUrl: user.photoURL,
+      });
+
+      // You can then use these details as needed, such as storing them in state or passing them to other components
+      // console.log('User Email:', userEmail);
+      // console.log('User Name:', userName);
+      // console.log('Profile Picture:', userProfilePicture);
     } catch (error) {
-        console.log(error);
-        
+      console.log(error);
     }
-}
+  };
   return (
     <>
       <div
@@ -29,7 +42,12 @@ const googleLogin = async () =>{
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
               <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                <h1 onClick={()=>props?.setLogin(false)} className="font-semibold text-3xl cursor-pointer">X</h1>
+                <h1
+                  onClick={() => props?.setLogin(false)}
+                  className="font-semibold text-3xl cursor-pointer"
+                >
+                  X
+                </h1>
                 <div className="sm:flex sm:items-start">
                   {/* <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
                     <svg
@@ -66,7 +84,10 @@ const googleLogin = async () =>{
                           Continue with phone
                         </h1>
                       </div>
-                      <div onClick={googleLogin} className="flex items-center border border-gray-300 p-2 rounded-md mt-4 cursor-pointer">
+                      <div
+                        onClick={googleLogin}
+                        className="flex items-center border border-gray-300 p-2 rounded-md mt-4 cursor-pointer"
+                      >
                         <FcGoogle className="text-xl" />
                         <h1 className="font-semibold ml-24">
                           Continue with Google

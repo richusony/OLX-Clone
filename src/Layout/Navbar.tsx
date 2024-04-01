@@ -20,7 +20,6 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    console.log(user.name);
     searchProducts(search);
   }, [search]);
 
@@ -53,13 +52,34 @@ const Navbar = () => {
           <h1 className="font-semibold">ENGLISH</h1>
           <IoIosArrowDown className="w-8 h-7" />
         </div>
-        <div
-          onClick={() => setLoginPopUP(!loginPopUp)}
-          className="flex h-12 p-3 ml-10 cursor-pointer underline hover:no-underline"
-        >
-          <h1 className="font-semibold text-xl flex justify-center items-center">{user.name?<>{user.profileUrl?<div className="mx-2 w-10"><img className="w-full object-cover rounded-full" src={user.profileUrl} alt="" /></div>:""} {user.name}  </>: "Login"}</h1>
-        </div>
-        <div className="w-28 flex h-12 p-2 ml-10 cursor-pointer rounded-full border border-yellow-500">
+
+        {user.name ? (
+          <Link
+            to="/profile"
+            className="flex justify-center items-center cursor-pointer underline hover:no-underline"
+          >
+            {user.profileUrl ? (
+              <div className="mr-2 w-8">
+                <img
+                  className="w-full object-cover rounded-full"
+                  src={user.profileUrl}
+                  alt=""
+                />
+              </div>
+            ) : null}{" "}
+            <span className="text-sm text-nowrap">{user.name}</span>
+          </Link>
+        ) : (
+          <div
+            onClick={() => setLoginPopUP(!loginPopUp)}
+            className="flex h-12 p-3 cursor-pointer underline hover:no-underline"
+          >
+            <h1 className="font-semibold h-fit text-xl flex justify-cente items-center">
+              Login
+            </h1>
+          </div>
+        )}
+        <div className="w-28 flex h-12 p-2 ml-5 cursor-pointer rounded-full border border-yellow-500">
           <h1 className="font-semibold text-xl ml-3">+ Sell</h1>
         </div>
       </div>
